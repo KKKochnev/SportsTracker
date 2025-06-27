@@ -22,11 +22,6 @@ public:
 private slots:
     void showTournamentPage(int tournamentId, const QString &tournamentName);
     void onTournamentClicked(QTreeWidgetItem *item, int column);
-    void showRoundSelectionPopup();
-    void onRoundSelected(QAbstractButton *button);
-    void loadMatchesForCurrentRound();
-    void loadMatchesAndStandings();
-    void loadStandings();
 
 private:
     void setupUI();
@@ -37,7 +32,6 @@ private:
     void showMatchStats(QListWidgetItem *item);
     void showMatchesList();
     void loadMatchStats(int matchId, const QString& team1, const QString& team2);
-    void loadLineups(int matchId, const QString& team1, const QString& team2);
     void loadScorers(int matchId, const QString& team1, const QString& team2);
     void loadRecentMatches(const QString& team, const QDate& beforeDate, QTableWidget* table);
     void loadHeadToHeadMatches(const QString& team1, const QString& team2, const QDate& beforeDate, QTableWidget* table);
@@ -47,7 +41,6 @@ private:
     QListWidget *matchesList;
     QTableWidget *standingsTable;
     QTableWidget *statsTable;
-    QTableWidget *lineupsTable;
     QTableWidget *scorersTable;
     QTableWidget *team1RecentMatches;
     QTableWidget *team2RecentMatches;
@@ -57,18 +50,8 @@ private:
     QPushButton *backButton2;
     QStackedWidget *leftPanelStack;
     QTabWidget *statsTabs;
-    QWidget *matchOverviewTab;
-    QWidget *historyTab;
     int currentTournamentId;
     QString currentTournamentName;
-    int currentRound;
-    int currentRoundPage;
-    int roundsPerPage;
-    QList<int> allRounds;
-    QWidget *roundsPopup;
-    QPushButton *roundButton;
-    QButtonGroup *roundsGroup;
-    int currentMatchId;
     QSqlDatabase db;
 };
 
