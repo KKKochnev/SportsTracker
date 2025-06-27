@@ -29,9 +29,20 @@
 - CMake 3.16+
 - Компилятор с поддержкой C++17
 
-## Сборка и запуск
+## Архитектура и диаграммы системы
 
-1. Клонируйте репозиторий:
-   ```bash
-   git clone https://github.com/ваш-username/SportsTracker.git
-   cd SportsTracker
+### 1. Диаграмма активностей (Activity Diagram)
+![Activity Diagram](Activity-Diagram.jpg)  
+*Рис. 1. Последовательность действий пользователя в приложении*
+
+### 2. C4 Container Diagram
+![C4 Container Diagram](C4-Container-Diagram.jpg)  
+*Рис. 2. Архитектурная диаграмма системы в нотации C4*
+
+### 3. MVC Architecture
+![MVC Diagram](MVC.jpg)  
+*Рис. 3. Взаимодействие компонентов по паттерну Model-View-Controller*
+
+### 4. Use Case Diagram
+![Use Case Diagram](UseCase-Diagram.jpg)  
+*Рис. 4. Диаграмма вариантов использования системы*
