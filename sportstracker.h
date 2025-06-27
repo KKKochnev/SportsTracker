@@ -2,14 +2,12 @@
 #define SPORTSTRACKER_H
 
 #include <QMainWindow>
-#include <QTreeWidget>
-#include <QListWidget>
-#include <QTableWidget>
 #include <QStackedWidget>
-#include <QPushButton>
-#include <QSqlDatabase>
+#include <QListWidget>
 #include <QLabel>
-#include <QTabWidget>
+#include <QMap>
+#include <QStringList>
+#include <QTableWidget>
 
 class SportsTracker : public QMainWindow
 {
@@ -17,59 +15,35 @@ class SportsTracker : public QMainWindow
 
 public:
     explicit SportsTracker(QWidget *parent = nullptr);
-    ~SportsTracker();
-
-private slots:
-    void showTournamentPage(int tournamentId, const QString &tournamentName);
-    void onTournamentClicked(QTreeWidgetItem *item, int column);
-    void showRoundSelectionPopup();
-    void onRoundSelected(QAbstractButton *button);
-    void loadMatchesForCurrentRound();
-    void loadMatchesAndStandings();
-    void loadStandings();
 
 private:
+    struct MatchResult {
+        QString date;
+        QString team1;
+        QString team2;
+        QString score;
+        QString tournament;
+        QString details;
+        QMap<QString, QString> team1Stats;
+        QMap<QString, QString> team2Stats;
+    };
+
     void setupUI();
-    bool initializeDatabase();
-    void loadSports();
-    void loadTournaments(QTreeWidgetItem *sportItem);
-    void loadMatchesAndStandings(int tournamentId);
-    void showMatchStats(QListWidgetItem *item);
-    void showMatchesList();
-    void loadMatchStats(int matchId, const QString& team1, const QString& team2);
-    void loadLineups(int matchId, const QString& team1, const QString& team2);
-    void loadScorers(int matchId, const QString& team1, const QString& team2);
-    void loadRecentMatches(const QString& team, const QDate& beforeDate, QTableWidget* table);
-    void loadHeadToHeadMatches(const QString& team1, const QString& team2, const QDate& beforeDate, QTableWidget* table);
+    void loadSportsData();
+    void showSportTournaments(const QString &sportName);
+    void showTournamentResults(const QString &sportName, const QString &tournamentName);
+    void showMatchDetails(const MatchResult &match);
 
     QStackedWidget *stackedWidget;
-    QTreeWidget *sportsTree;
+    QListWidget *sportsList;
+    QListWidget *tournamentsList;
     QListWidget *matchesList;
-    QTableWidget *standingsTable;
-    QTableWidget *statsTable;
-    QTableWidget *lineupsTable;
-    QTableWidget *scorersTable;
-    QTableWidget *team1RecentMatches;
-    QTableWidget *team2RecentMatches;
-    QTableWidget *headToHeadMatches;
+    QLabel *sportTitle;
+    QLabel *tournamentTitle;
     QLabel *matchTitle;
-    QPushButton *backButton1;
-    QPushButton *backButton2;
-    QStackedWidget *leftPanelStack;
-    QTabWidget *statsTabs;
-    QWidget *matchOverviewTab;
-    QWidget *historyTab;
-    int currentTournamentId;
-    QString currentTournamentName;
-    int currentRound;
-    int currentRoundPage;
-    int roundsPerPage;
-    QList<int> allRounds;
-    QWidget *roundsPopup;
-    QPushButton *roundButton;
-    QButtonGroup *roundsGroup;
-    int currentMatchId;
-    QSqlDatabase db;
+    QTableWidget *statsTable;
+
+    QMap<QString, QMap<QString, QList<MatchResult>>> sportTournamentResults;
 };
 
 #endif // SPORTSTRACKER_H
